@@ -34,29 +34,43 @@ Repository ini berisi API untuk mengelola data buku dan kategori yang dibangun m
 
 Aplikasi akan berjalan di http://localhost:8080.
 
-```bash
-- GET (/api/books)
-    Mendapatkan Daftar Semua Buku.
-- GET (/api/books/:id)
-    Mendapatkan Detail Buku Berdasarkan ID
-- POST (/api/books)
-    Menambahkan Buku Baru
-- PUT (/api/books/:id)
-    Memperbarui Buku Berdasarkan ID
-- DELETE (/api/books/:id)
-    Menghapus Buku Berdasarkan ID
+## API Endpoints
 
-- GET (/api/categories)
-    Mendapatkan Daftar Semua Categories.
-- GET (/api/categories/:id)
-    Mendapatkan Detail Categories Berdasarkan ID.
-- POST (/api/categories)
-    Menambahkan Categories Baru.
-- PUT (/api/categories/:id)
-    Memperbarui Categories Berdasarkan ID.
-- DELETE (/api/categories/:id)
-    Menghapus Categories Berdasarkan ID.
-```
+### Buku
+
+- **`GET /api/books`**  
+  Mengambil daftar semua buku yang tersedia.
+
+- **`GET /api/books/:id`**  
+  Mengambil detail buku berdasarkan ID yang diberikan.
+
+- **`POST /api/books`**  
+  Menambahkan buku baru ke dalam sistem.
+
+- **`PUT /api/books/:id`**  
+  Memperbarui informasi buku yang sudah ada berdasarkan ID.
+
+- **`DELETE /api/books/:id`**  
+  Menghapus buku dari sistem berdasarkan ID.
+
+### Kategori
+
+- **`GET /api/categories`**  
+  Mengambil daftar semua kategori yang tersedia.
+
+- **`GET /api/categories/:id`**  
+  Mengambil detail kategori berdasarkan ID yang diberikan.
+
+- **`POST /api/categories`**  
+  Menambahkan kategori baru ke dalam sistem.
+
+- **`PUT /api/categories/:id`**  
+  Memperbarui informasi kategori yang sudah ada berdasarkan ID.
+
+- **`DELETE /api/categories/:id`**  
+  Menghapus kategori dari sistem berdasarkan ID.
+
+  
 ## Teknologi yang Digunakan
 
 - **Go**: Bahasa pemrograman untuk logika backend.
