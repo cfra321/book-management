@@ -18,13 +18,12 @@ Untuk mendapatkan token akses, kirimkan permintaan `POST` ke endpoint berikut:
 }
 ```
 
-Contoh Response Body:
-
-json
-Copy code
+**Contoh Response Body**:
+```json
 {
     "token": "your_access_token_here"
 }
+```
 
 ## Fitur and API Endpoints
 
