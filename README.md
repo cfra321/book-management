@@ -1,12 +1,44 @@
 # Book Management API
 
-Repository ini berisi API untuk mengelola data buku dan kategori yang dibangun menggunakan **Golang** dan **Gin Gonic**.
+## AKSES TOKEN
+
+### Login untuk Mendapatkan Token
+
+Untuk mendapatkan token akses, kirimkan permintaan `POST` ke endpoint berikut:
+
+- **URL**: `{{url}}/login`
+- **Metode**: `POST`
+
+**Contoh Request Body**:
+
+```json
+{
+    "username": "jhon",
+    "password": "jhon123"
+}
+```
 
 ## Fitur and API Endpoints
 
 - **Buku**
-  - **`GET /api/books`**             Mendapatkan daftar semua buku
+  - **`GET /api/books`**             Mendapatkan daftar semua buku   
   - **`POST /api/books`**            Menambahkan buku baru
+  ```json
+    {
+    "id": 3,
+    "title": "Algorithms and Data Structures",
+    "description": "A comprehensive book on algorithms and data structures for computer science enthusiasts.",
+    "image_url": "https://example.com/images/algorithms_data_structures.jpg",
+    "release_year": 2023,
+    "price": 350000,
+    "total_page": 500,
+    "category_id": 3,
+    "created_at": "2023-09-08T14:15:00Z",
+    "created_by": "admin",
+    "modified_at": "2023-09-08T14:15:00Z",
+    "modified_by": "admin"
+  }
+  ```
   - **`GET /api/books/:id`**         Mendapatkan detail buku berdasarkan ID
   - **`DELETE /api/books/:id`**      Menghapus buku berdasarkan ID
   - **`PUT /api/books/:id`**         Memperbarui buku berdasarkan ID
