@@ -2,73 +2,68 @@
 
 Repository ini berisi API untuk mengelola data buku dan kategori yang dibangun menggunakan **Golang** dan **Gin Gonic**.
 
-## Fitur
+## Fitur and API Endpoints
 
 - **Buku**
+  - **`POST /api/books`**
   - Menambahkan buku baru
+  - **`PUT /api/books/:id`**  
   - Memperbarui buku berdasarkan ID
+  - **`DELETE /api/books/:id`** 
   - Menghapus buku berdasarkan ID
+  - **`GET /api/books`**  
   - Mendapatkan daftar semua buku
+  - **`GET /api/books/:id`**  
   - Mendapatkan detail buku berdasarkan ID
-- **Kategori**
-  - Menambahkan kategori baru
-  - Mendapatkan daftar semua kategori
-  - Mendapatkan detail kategori berdasarkan ID
 
+- **Kategori**
+  - **`POST /api/categories`**  
+  - Menambahkan kategori baru
+  - **`GET /api/categories`**
+  - Mendapatkan daftar semua kategori
+  - **`GET /api/categories/:id`**  
+  - Mendapatkan detail kategori berdasarkan ID
+  - **`PUT /api/categories/:id`** 
+  - Memperbarui detail kategori berdasarkan ID
+  - **`DELETE /api/categories/:id`**  
+  - Menghapus kategori dari sistem berdasarkan ID
 
 ## Struktur Proyek
 
 ```bash
 .
-├── main.go          # Entry point aplikasi
-├── controllers/     # Handler untuk endpoints
-│   └── book.go      # Logika untuk resource buku
-├── models/          # Struktur data dan model database
-│   └── book.go      # Model untuk data buku
-├── repositories/    # Interaksi dengan database
-│   └── book_repo.go # Implementasi repository untuk buku
-└── services/        # Logika bisnis aplikasi
-    └── book_service.go # Layanan untuk memproses logika buku
+├── go.mod             # Informasi dependensi dan versi modul Go
+├── go.sum             # Checksum dari dependensi yang digunakan
+├── config/            # Konfigurasi aplikasi
+│   └── .env           # File environment untuk menyimpan variabel konfigurasi
+├── controllers/       # Handler untuk endpoints
+│   ├── book.go        # Logika untuk resource buku (CRUD Buku)
+│   ├── category.go    # Logika untuk resource kategori buku (CRUD Kategori)
+│   ├── login.go       # Logika untuk otentikasi pengguna (Login)
+│   └── user.go        # Logika untuk resource pengguna (CRUD Pengguna)
+├── database/          # Konfigurasi database dan migrasi
+│   ├── database.go    # Koneksi dan pengaturan database
+│   └── sql_migrations/  # Direktori untuk file migrasi SQL
+│       ├── 1_initiate_book.sql     # SQL untuk membuat tabel buku
+│       ├── 2_initiate_category.sql # SQL untuk membuat tabel kategori
+│       └── 3_initiate_user.sql     # SQL untuk membuat tabel pengguna
+├── helpers/           # Fungsi utilitas umum
+│   └── jwt.go         # Fungsi helper untuk JWT (JSON Web Token)
+├── middleware/        # Middleware untuk aplikasi
+│   └── middleware.go  # Implementasi middleware (misalnya, otentikasi, logging)
+├── repository/        # Interaksi langsung dengan database
+│   ├── book.go        # Implementasi repository untuk resource buku
+│   ├── category.go    # Implementasi repository untuk resource kategori
+│   └── user.go        # Implementasi repository untuk resource pengguna
+├── seeder/            # Data seeder untuk populasi awal database
+│   └── user_seeder.go # Seeder untuk pengguna awal di database
+└── structs/           # Definisi struktur data (model)
+    └── struct.go      # Definisi struct untuk buku, kategori, pengguna, dll.
 
 ```
 
 Aplikasi akan berjalan di http://localhost:8080.
 
-## API Endpoints
-
-### Buku
-
-- **`GET /api/books`**  
-  Mengambil daftar semua buku yang tersedia.
-
-- **`GET /api/books/:id`**  
-  Mengambil detail buku berdasarkan ID yang diberikan.
-
-- **`POST /api/books`**  
-  Menambahkan buku baru ke dalam sistem.
-
-- **`PUT /api/books/:id`**  
-  Memperbarui informasi buku yang sudah ada berdasarkan ID.
-
-- **`DELETE /api/books/:id`**  
-  Menghapus buku dari sistem berdasarkan ID.
-
-### Kategori
-
-- **`GET /api/categories`**  
-  Mengambil daftar semua kategori yang tersedia.
-
-- **`GET /api/categories/:id`**  
-  Mengambil detail kategori berdasarkan ID yang diberikan.
-
-- **`POST /api/categories`**  
-  Menambahkan kategori baru ke dalam sistem.
-
-- **`PUT /api/categories/:id`**  
-  Memperbarui informasi kategori yang sudah ada berdasarkan ID.
-
-- **`DELETE /api/categories/:id`**  
-  Menghapus kategori dari sistem berdasarkan ID.
 
   
 ## Teknologi yang Digunakan
@@ -100,6 +95,6 @@ go run main.go
 
 ## License
 
-Dokumentasi ini memberikan panduan lengkap untuk menjalankan, dan menggunakan API. Anda dapat menyesuaikan informasi sesuai kebutuhan proyek Anda.
+Dokumentasi ini MIT
 
 
