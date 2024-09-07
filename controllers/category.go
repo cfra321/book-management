@@ -29,6 +29,26 @@ func GetAllCategories(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// GetCategory retrieves a single category from the database
+func GetCategory(c *gin.Context) {
+	var result gin.H
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	category, err := repository.GetCategory(database.DbConnection, id)
+
+	if err != nil {
+		result = gin.H{
+			"result": err.Error(),
+		}
+	} else {
+		result = gin.H{
+			"result": category,
+		}
+	}
+
+	c.JSON(http.StatusOK, result)
+}
+
 // InsertCategory inserts a new category into the database
 func InsertCategory(c *gin.Context) {
 	var category structs.Category

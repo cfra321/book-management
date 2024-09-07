@@ -10,7 +10,7 @@ type Book struct {
 	ReleaseYear int       `json:"release_year"`
 	Price       int       `json:"price"`
 	TotalPage   int       `json:"total_page"`
-	Thickness   int       `json:"thickness"`
+	Thickness   string    `json:"thickness"`
 	CategoryID  int       `json:"category_id"`
 	CreatedAt   time.Time `json:"created_at"`
 	CreatedBy   string    `json:"created_by"`

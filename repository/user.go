@@ -5,15 +5,16 @@ import (
 	"database/sql"
 )
 
+// GetAllUser retrieves all users from the database.
 func GetAllUser(db *sql.DB) (result []structs.User, err error) {
-	sql := "SELECT * FROM users"
+	query := "SELECT * FROM users"
 
-	rows, err := db.Query(sql)
+	rows, err := db.Query(query)
 	if err != nil {
-		return
+		return nil, err
 	}
-
 	defer rows.Close()
+
 	for rows.Next() {
 		var user structs.User
 
@@ -27,42 +28,61 @@ func GetAllUser(db *sql.DB) (result []structs.User, err error) {
 			&user.ModifiedBy, // varchar(256) -> string
 		)
 		if err != nil {
-			return
+			return nil, err
 		}
 
 		result = append(result, user)
 	}
 
-	return
+	return result, nil
 }
 
+// InsertUser inserts a new user into the database.
 func InsertUser(db *sql.DB, user structs.User) (err error) {
-	sql := "INSERT INTO users(id, username, password, created_at, created_by, modified_at, modified_by) VALUES ($1, $2, $3, $4, $5, $6, $7)"
+	query := `
+		INSERT INTO users (
+			id, username, password, created_at, created_by, modified_at, modified_by
+		)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
+	`
 
-	errs := db.QueryRow(sql, user.ID, user.Username, user.Password, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy)
-
-	return errs.Err()
+	_, err = db.Exec(query, user.ID, user.Username, user.Password, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy)
+	return err
 }
 
+// UpdateUser updates an existing user in the database.
 func UpdateUser(db *sql.DB, user structs.User) (err error) {
-	sql := "UPDATE users SET username = $1, password = $2, created_at = $3, created_by = $4, modified_at = $5, modified_by = $6 WHERE id = $7"
+	query := `
+		UPDATE users
+		SET 
+			username = $1, 
+			password = $2, 
+			created_at = $3, 
+			created_by = $4, 
+			modified_at = $5, 
+			modified_by = $6
+		WHERE id = $7
+	`
 
-	errs := db.QueryRow(sql, user.Username, user.Password, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy, user.ID)
-
-	return errs.Err()
+	_, err = db.Exec(query, user.Username, user.Password, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy, user.ID)
+	return err
 }
 
+// DeleteUser deletes a user from the database.
 func DeleteUser(db *sql.DB, user structs.User) (err error) {
-	sql := "DELETE FROM users WHERE id = $1"
+	query := "DELETE FROM users WHERE id = $1"
 
-	errs := db.QueryRow(sql, user.ID)
-	return errs.Err()
+	_, err = db.Exec(query, user.ID)
+	return err
 }
 
-func GetUserByUsername(db *sql.DB, username string) (structs.User, error) {
-	var user structs.User
+// GetUserByUsername retrieves a user by username from the database.
+func GetUserByUsername(db *sql.DB, username string) (user structs.User, err error) {
 	query := "SELECT id, username, password FROM users WHERE username = $1"
-	err := db.QueryRow(query, username).Scan(&user.ID, &user.Username, &user.Password)
-
+	err = db.QueryRow(query, username).Scan(
+		&user.ID,       // BIGINT -> int
+		&user.Username, // varchar(256) -> string
+		&user.Password, // varchar(256) -> string
+	)
 	return user, err
 }

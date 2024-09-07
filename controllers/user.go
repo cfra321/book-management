@@ -63,19 +63,33 @@ func UpdateUser(c *gin.Context) {
 	var user structs.User
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	err := c.BindJSON(&user)
-	if err != nil {
-		panic(err)
+	// Bind JSON input to User struct
+	if err := c.BindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		return
 	}
 
+	// Set the ID from the URL parameter
 	user.ID = id
 
-	err = repository.UpdateUser(database.DbConnection, user)
-	if err != nil {
-		panic(err)
+	// Check if password is provided for update and hash it
+	if user.Password != "" {
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not hash password"})
+			return
+		}
+		user.Password = string(hashedPassword)
 	}
 
-	c.JSON(http.StatusOK, user)
+	// Update the user in the database
+	err := repository.UpdateUser(database.DbConnection, user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not update user"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "User updated successfully", "user": user})
 }
 
 // DeleteUser deletes a user from the database

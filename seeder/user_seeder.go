@@ -9,7 +9,7 @@ import (
 
 // SeedUsers seeds the database with initial user data
 func SeedUsers(db *sql.DB) {
-	// User data to seed
+	// Data pengguna yang akan di-seed
 	users := []struct {
 		ID         int
 		Username   string
@@ -22,7 +22,7 @@ func SeedUsers(db *sql.DB) {
 		{
 			ID:         1,
 			Username:   "admin",
-			Password:   "password", // this will be hashed
+			Password:   "password", // ini akan di-hash
 			CreatedAt:  "2024-08-03T14:55:00Z",
 			CreatedBy:  "admin",
 			ModifiedAt: "2024-08-03T15:00:00Z",
@@ -31,22 +31,31 @@ func SeedUsers(db *sql.DB) {
 	}
 
 	for _, user := range users {
-		// Hash the password
+		// Hash password
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 		if err != nil {
-			log.Fatalf("Could not hash password: %v", err)
+			log.Fatalf("Tidak dapat meng-hash password: %v", err)
 		}
 
-		// Insert user into the database
-		_, err = db.Exec(`
-			INSERT INTO users (id, username, password, created_at, created_by, modified_at, modified_by)
-			VALUES ($1, $2, $3, $4, $5, $6, $7)
-		`, user.ID, user.Username, hashedPassword, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy)
+		// Periksa apakah pengguna sudah ada
+		var existingID int
+		err = db.QueryRow(`SELECT id FROM users WHERE username = $1`, user.Username).Scan(&existingID)
+		if err != nil && err != sql.ErrNoRows {
+			log.Fatalf("Error memeriksa apakah pengguna ada: %v", err)
+		}
 
-		if err != nil {
-			log.Fatalf("Could not insert user: %v", err)
+		// Jika pengguna tidak ada, lakukan insert
+		if err == sql.ErrNoRows {
+			_, err = db.Exec(`
+				INSERT INTO users (id, username, password, created_at, created_by, modified_at, modified_by)
+				VALUES ($1, $2, $3, $4, $5, $6, $7)
+			`, user.ID, user.Username, hashedPassword, user.CreatedAt, user.CreatedBy, user.ModifiedAt, user.ModifiedBy)
+
+			if err != nil {
+				log.Fatalf("Tidak dapat memasukkan pengguna: %v", err)
+			}
 		}
 	}
 
-	log.Println("Users seeded successfully.")
+	log.Println("Pengguna berhasil di-seed.")
 }

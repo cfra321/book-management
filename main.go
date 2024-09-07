@@ -71,11 +71,13 @@ func main() {
 	authorized.Use(middleware.JWTAuthMiddleware())
 	{
 		authorized.GET("/book", controllers.GetAllBooks)
+		authorized.GET("/book/:id", controllers.GetBook)
 		authorized.POST("/book", controllers.InsertBook)
 		authorized.PUT("/book/:id", controllers.UpdateBook)
 		authorized.DELETE("/book/:id", controllers.DeleteBook)
 
 		authorized.GET("/category", controllers.GetAllCategories)
+		authorized.GET("/category/:id", controllers.GetCategory)
 		authorized.POST("/category", controllers.InsertCategory)
 		authorized.PUT("/category/:id", controllers.UpdateCategory)
 		authorized.DELETE("/category/:id", controllers.DeleteCategory)

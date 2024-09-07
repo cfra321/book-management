@@ -2,14 +2,14 @@
 -- +migrate Up
 -- +migrate StatementBegin
 
-create table users (
-    id           BIGINT NOT NULL,
-    username     varchar(256),
-    password     varchar(256),
+CREATE TABLE users (
+    id           BIGINT PRIMARY KEY, -- Menjadikan id sebagai PRIMARY KEY
+    username     VARCHAR(256),
+    password     VARCHAR(256),
     created_at   TIMESTAMP,
-    created_by   varchar(256),
+    created_by   VARCHAR(256),
     modified_at  TIMESTAMP,
-    modified_by  varchar(256)
-)
+    modified_by  VARCHAR(256)
+);
 
 -- +migrate StatementEnd

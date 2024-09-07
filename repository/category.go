@@ -34,6 +34,20 @@ func GetAllCategory(db *sql.DB) (result []structs.Category, err error) {
 	return
 }
 
+func GetCategory(db *sql.DB, id int) (category structs.Category, err error) {
+	sql := "SELECT * FROM category WHERE id = $1"
+
+	err = db.QueryRow(sql, id).Scan(
+		&category.ID,
+		&category.Name,
+		&category.CreatedAt,
+		&category.CreatedBy,
+		&category.ModifiedAt,
+		&category.ModifiedBy)
+
+	return
+}
+
 func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 	sql := "INSERT INTO category(id, name, created_at, created_by, modified_at, modified_by) VALUES ($1, $2, $3, $4, $5, $6)"
 
