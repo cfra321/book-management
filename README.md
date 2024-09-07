@@ -38,7 +38,8 @@ Untuk mendapatkan token akses, kirimkan permintaan `POST` ke endpoint berikut:
     "image_url": "https://example.com/images/go_programming.jpg",
     "release_year": 2022,
     "price": 250000,
-    "total_page": 350,
+    "total_page": 450,
+    "thickness": "tebal"
     "category_id": 1,
     "created_at": "2023-08-01T10:00:00Z",
     "created_by": "admin",
