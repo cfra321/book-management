@@ -1,6 +1,6 @@
-
 -- +migrate Up
 -- +migrate StatementBegin
+
 CREATE TABLE book (
     id            BIGSERIAL PRIMARY KEY,
     title         VARCHAR(256),

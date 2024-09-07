@@ -1,4 +1,3 @@
-
 -- +migrate Up
 -- +migrate StatementBegin
 
