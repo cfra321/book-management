@@ -85,10 +85,6 @@ func main() {
 		authorized.PUT("/user/:id", controllers.UpdateUser)
 		authorized.DELETE("/user/:id", controllers.DeleteUser)
 
-		router.GET("/persons", controllers.GetAllPerson)
-		router.POST("/persons", controllers.InsertPerson)
-		router.PUT("/persons/:id", controllers.UpdatePerson)
-		router.DELETE("/persons/:id", controllers.DeletePerson)
 	}
 
 	router.Run(":8080")

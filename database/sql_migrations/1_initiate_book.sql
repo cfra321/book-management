@@ -18,4 +18,5 @@ create table book (
     modified_by   varchar(256)
 )
 
+
 -- +migrate StatementEnd

@@ -36,9 +36,3 @@ type User struct {
 	ModifiedAt time.Time `json:"modified_at"`
 	ModifiedBy string    `json:"modified_by"`
 }
-
-type Person struct {
-	ID        int    `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-}
