@@ -6,27 +6,27 @@ Repository ini berisi API untuk mengelola data buku dan kategori yang dibangun m
 
 - **Buku**
   - **`POST /api/books`**
-  - Menambahkan buku baru
+    - Menambahkan buku baru
   - **`PUT /api/books/:id`**  
-  - Memperbarui buku berdasarkan ID
+    - Memperbarui buku berdasarkan ID
   - **`DELETE /api/books/:id`** 
-  - Menghapus buku berdasarkan ID
+    - Menghapus buku berdasarkan ID
   - **`GET /api/books`**  
-  - Mendapatkan daftar semua buku
+    - Mendapatkan daftar semua buku
   - **`GET /api/books/:id`**  
-  - Mendapatkan detail buku berdasarkan ID
+    - Mendapatkan detail buku berdasarkan ID
 
 - **Kategori**
   - **`POST /api/categories`**  
-  - Menambahkan kategori baru
+   - Menambahkan kategori baru
   - **`GET /api/categories`**
-  - Mendapatkan daftar semua kategori
+    - Mendapatkan daftar semua kategori
   - **`GET /api/categories/:id`**  
-  - Mendapatkan detail kategori berdasarkan ID
+    - Mendapatkan detail kategori berdasarkan ID
   - **`PUT /api/categories/:id`** 
-  - Memperbarui detail kategori berdasarkan ID
+    - Memperbarui detail kategori berdasarkan ID
   - **`DELETE /api/categories/:id`**  
-  - Menghapus kategori dari sistem berdasarkan ID
+    - Menghapus kategori dari sistem berdasarkan ID
 
 ## Struktur Proyek
 
