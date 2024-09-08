@@ -1,21 +1,28 @@
 # Book Management API
+<ul>
+<li>Nama : Kukuh Wicaksono</li>
+<li>Quiz 3 - Pekan 3 (Coding) Bootcamp Golang Sanbercode Batch 59</li>
+</ul>
+
+
+### ERD
+Sistem Informasi Acara Komunitas dan Tiket ini memiliki 5 tabel :
+<ul>
+<li>Tabel users</li>
+<li>Tabel book</li>
+<li>Tabel category book</li>
+</ul>
+<img src="documentation/Database_design.png">
 
 ## AKSES TOKEN
 
-### Login untuk Mendapatkan Token
+## Endpoint Login 
+Endpoint Login digunakan untuk autentikasi pengguna dan mendapatkan token JWT.
 
-Untuk mendapatkan token akses, kirimkan permintaan `POST` ke endpoint berikut:
+Method | Path | Keterangan | Auth
+------------- | ------------- | ------------- | -------------
+***POST*** | *`/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No 
 
-- **URL**: `{{url}}/login`
-- **Metode**: `POST`
-
-**Contoh Request Body**:
-
-```json
-{
-    "username": "jhon",
-    "password": "jhon123"
-}
 ```
 
 ## Fitur and API Endpoints

@@ -3,16 +3,15 @@ package main
 import (
 	"book-management/controllers"
 	"book-management/database"
-	middleware "book-management/middleware"
+	"book-management/middleware"
 	"book-management/seeder"
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
-
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
@@ -29,11 +28,11 @@ func main() {
 	}
 
 	psqlInfo := fmt.Sprintf(`host=%s port=%s user=%s password=%s dbname=%s sslmode=disable`,
-		os.Getenv("PGHOST"),
-		os.Getenv("PGPORT"),
-		os.Getenv("PGUSER"),
-		os.Getenv("PGPASSWORD"),
-		os.Getenv("PGDATABASE"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
 	)
 
 	DB, err = sql.Open("postgres", psqlInfo)
@@ -46,11 +45,11 @@ func main() {
 	database.DBMigrate(DB)
 
 	psqlSeeder := fmt.Sprintf(`host=%s port=%s user=%s password=%s dbname=%s sslmode=disable`,
-		os.Getenv("PGHOST"),
-		os.Getenv("PGPORT"),
-		os.Getenv("PGUSER"),
-		os.Getenv("PGPASSWORD"),
-		os.Getenv("PGDATABASE"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
 	)
 
 	DB, err = sql.Open("postgres", psqlSeeder)
@@ -65,12 +64,17 @@ func main() {
 
 	router := gin.Default()
 
+	// Apply CORS middleware
+	router.Use(middleware.CORSMiddleware())
+
+	// Route untuk login
 	router.POST("/login", controllers.Login)
 
 	authorized := router.Group("/")
 	authorized.Use(middleware.JWTAuthMiddleware())
 	{
 		authorized.GET("/book", controllers.GetAllBooks)
+		authorized.OPTIONS("/book", controllers.GetAllBooks)
 		authorized.GET("/book/:id", controllers.GetBook)
 		authorized.POST("/book", controllers.InsertBook)
 		authorized.PUT("/book/:id", controllers.UpdateBook)
@@ -83,11 +87,11 @@ func main() {
 		authorized.DELETE("/category/:id", controllers.DeleteCategory)
 
 		authorized.GET("/user", controllers.GetAllUsers)
+		authorized.OPTIONS("/user", controllers.GetAllUsers)
 		authorized.POST("/user", controllers.InsertUser)
 		authorized.PUT("/user/:id", controllers.UpdateUser)
 		authorized.DELETE("/user/:id", controllers.DeleteUser)
 	}
 
-	router.Run(":" + os.Getenv("PORT"))
-	// router.Run(":8080")
+	router.Run(":8080")
 }
