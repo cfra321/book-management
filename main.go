@@ -81,6 +81,7 @@ func main() {
 		authorized.POST("/category", controllers.InsertCategory)
 		authorized.PUT("/category/:id", controllers.UpdateCategory)
 		authorized.DELETE("/category/:id", controllers.DeleteCategory)
+		authorized.GET("/category/:id/books", controllers.GetBooksByCategory)
 
 		authorized.GET("/user", controllers.GetAllUsers)
 		authorized.POST("/user", controllers.InsertUser)

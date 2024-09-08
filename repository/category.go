@@ -3,6 +3,7 @@ package repository
 import (
 	"book-management/structs"
 	"database/sql"
+	"errors"
 )
 
 func GetAllCategory(db *sql.DB) (result []structs.Category, err error) {
@@ -29,6 +30,38 @@ func GetAllCategory(db *sql.DB) (result []structs.Category, err error) {
 		}
 
 		result = append(result, category)
+	}
+
+	return
+}
+
+func GetBooksByCategory(db *sql.DB, id int) (result []structs.Book, err error) {
+	// Specify the columns to avoid issues with column counts
+	sql := "SELECT id, title, category_id, created_at, created_by, modified_at, modified_by FROM book WHERE category_id = $1"
+
+	rows, err := db.Query(sql, id)
+	if err != nil {
+		return
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var book structs.Book
+
+		// Map the selected columns to the struct fields
+		err = rows.Scan(
+			&book.ID,
+			&book.Title,
+			&book.CategoryID,
+			&book.CreatedAt,
+			&book.CreatedBy,
+			&book.ModifiedAt,
+			&book.ModifiedBy)
+		if err != nil {
+			return
+		}
+
+		result = append(result, book)
 	}
 
 	return
@@ -69,4 +102,19 @@ func DeleteCategory(db *sql.DB, category structs.Category) (err error) {
 
 	errs := db.QueryRow(sql, category.ID)
 	return errs.Err()
+}
+
+// GetCategoryByID retrieves a category from the database by its ID
+func GetCategoryByID(db *sql.DB, category *structs.Category) error {
+	query := "SELECT id, name FROM categories WHERE id = ?"
+	err := db.QueryRow(query, category.ID).Scan(&category.ID, &category.Name)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return errors.New("category not found")
+		}
+		return err
+	}
+
+	return nil
 }
