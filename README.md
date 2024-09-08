@@ -21,31 +21,21 @@ Endpoint Login digunakan untuk autentikasi pengguna dan mendapatkan token JWT.
 
 Method | Path | Keterangan | Auth | Body Request  
 ------------- | ------------- | ------------- | -------------  | -------------  
-***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No  | `{ "username": "string" ,  "password": "string" }'
+***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No  | `{ "username": "string" , "password": "string" }`  
+
+
+> ⚠️ **Warning**: Username dan password yang valid adalah **admin** dan **password**
 
 **Contoh CURL**
 ```json
 curl --location 'http://localhost:8080/login' \
 --header 'Content-Type: application/json' \
 --data '{
-    "username":"admin",
-    "password": "password"
+    "username":"your username",
+    "password": "your password"
 }'
 ```
-**Contoh Request Body**
-> ⚠️ **Warning**: Username dan password yang valid adalah **admin** dan **password**.
-  ```json
-  {
-    "username":"{input your usernamme}",
-    "password": "{input your password}"
-  }
-  ```
-  **Contoh Response Body**
-  ```json
-  {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzI1ODg5MzgxfQ.BcSTHFfh-ew_8UsOqWmbpzVw1QcQ7gUFE5sBi395Gp8"
-  }
-  ```
+
 
 ## Fitur and API Endpoints
 
