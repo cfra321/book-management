@@ -6,11 +6,11 @@
 
 
 ### ERD
-Sistem Informasi Acara Komunitas dan Tiket ini memiliki 5 tabel :
+Sistem Service ini memiliki 3 tabel :
 <ul>
+<li>Tabel books</li>
+<li>Tabel categories</li>
 <li>Tabel users</li>
-<li>Tabel book</li>
-<li>Tabel category book</li>
 </ul>
 <img src="documentation/Database_design.png">
 
@@ -19,68 +19,56 @@ Sistem Informasi Acara Komunitas dan Tiket ini memiliki 5 tabel :
 ## Endpoint Login 
 Endpoint Login digunakan untuk autentikasi pengguna dan mendapatkan token JWT.
 
-Method | Path | Keterangan | Auth 
-------------- | ------------- | ------------- | -------------  
-***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No 
+Method | Path | Keterangan | Auth | Body Request  
+------------- | ------------- | ------------- | -------------  | -------------  
+***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No  | `{ "username": "string" ,  "password": "string" }'
 
-**Contoh Request Body**
-  ```json
-  {
+**Contoh CURL**
+```json
+curl --location 'http://localhost:8080/login' \
+--header 'Content-Type: application/json' \
+--data '{
     "username":"admin",
     "password": "password"
+}'
+```
+**Contoh Request Body**
+> ⚠️ **Warning**: Username dan password yang valid adalah **admin** dan **password**.
+  ```json
+  {
+    "username":"{input your usernamme}",
+    "password": "{input your password}"
+  }
+  ```
+  **Contoh Response Body**
+  ```json
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzI1ODg5MzgxfQ.BcSTHFfh-ew_8UsOqWmbpzVw1QcQ7gUFE5sBi395Gp8"
   }
   ```
 
 ## Fitur and API Endpoints
 
-- **Buku**
-  - **`GET /api/books`**             Mendapatkan daftar semua buku
-      - Contoh Response Body:     
-  ```json
-   {
-    "id": 1,
-    "title": "Go Programming",
-    "description": "A comprehensive guide to mastering Go programming.",
-    "image_url": "https://example.com/images/go_programming.jpg",
-    "release_year": 2022,
-    "price": 250000,
-    "total_page": 450,
-    "thickness": "tebal"
-    "category_id": 1,
-    "created_at": "2023-08-01T10:00:00Z",
-    "created_by": "admin",
-    "modified_at": "2023-08-02T10:00:00Z",
-    "modified_by": "admin"
-  }
-  ```
-  - **`POST /api/books`**            Menambahkan buku baru
-  ```json
-    {
-    "id": 3,
-    "title": "Algorithms and Data Structures",
-    "description": "A comprehensive book on algorithms and data structures for computer science enthusiasts.",
-    "image_url": "https://example.com/images/algorithms_data_structures.jpg",
-    "release_year": 2023,
-    "price": 350000,
-    "total_page": 500,
-    "category_id": 3,
-    "created_at": "2023-09-08T14:15:00Z",
-    "created_by": "admin",
-    "modified_at": "2023-09-08T14:15:00Z",
-    "modified_by": "admin"
-  }
-  ```
-  - **`GET /api/books/:id`**         Mendapatkan detail buku berdasarkan ID
-  - **`DELETE /api/books/:id`**      Menghapus buku berdasarkan ID
-  - **`PUT /api/books/:id`**         Memperbarui buku berdasarkan ID
+### Buku
+
+Method | Path | Keterangan | Auth | Body Request  
+------------- | ------------- | ------------- | ------------- | -------------  
+***GET*** | *`/api/books`* | Mendapatkan daftar semua buku | No | -  
+***POST*** | *`/api/books`* | Menambahkan buku baru | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": 2023, "price": 250000, "total_page": 450, "category_id": 1 }`  
+***GET*** | *`/api/books/:id`* | Mendapatkan detail buku berdasarkan ID | No | -  
+***PUT*** | *`/api/books/:id`* | Memperbarui buku berdasarkan ID | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": 2023, "price": 250000, "total_page": 450, "category_id": 1 }`  
+***DELETE*** | *`/api/books/:id`* | Menghapus buku berdasarkan ID | Yes | -  
   
   
-- **Kategori**
-  - **`POST /api/categories`**       Menambahkan kategori baru
-  - **`GET /api/categories`**        Mendapatkan daftar semua kategori
-  - **`GET /api/categories/:id`**    Mendapatkan detail kategori berdasarkan ID
-  - **`PUT /api/categories/:id`**    Memperbarui detail kategori berdasarkan ID
-  - **`DELETE /api/categories/:id`** Menghapus kategori dari sistem berdasarkan ID
+### Kategori
+
+Method | Path | Keterangan | Auth | Body Request  
+------------- | ------------- | ------------- | ------------- | -------------  
+***POST*** | *`/api/categories`* | Menambahkan kategori baru | Yes | `{ "name": "string", "description": "string" }`  
+***GET*** | *`/api/categories`* | Mendapatkan daftar semua kategori | No | -  
+***GET*** | *`/api/categories/:id`* | Mendapatkan detail kategori berdasarkan ID | No | -  
+***PUT*** | *`/api/categories/:id`* | Memperbarui detail kategori berdasarkan ID | Yes | `{ "name": "string", "description": "string" }`  
+***DELETE*** | *`/api/categories/:id`* | Menghapus kategori dari sistem berdasarkan ID | Yes | -  
 
 ## Struktur Proyek
 
@@ -118,19 +106,12 @@ Method | Path | Keterangan | Auth
 
 Aplikasi akan berjalan di http://localhost:8080.
 
-
   
 ## Teknologi yang Digunakan
 
 - **Go**: Bahasa pemrograman untuk logika backend.
 - **Gin Gonic**: Web framework untuk membangun API.
 - **MySQL**: Basis data untuk menyimpan data buku dan kategori.
-
-## Persiapan Sebelum Menjalankan
-
-1. Pastikan **Go** sudah terinstall. Anda bisa mendownloadnya dari [sini](https://golang.org/dl/).
-2. Buat dan konfigurasi database MySQL yang dibutuhkan untuk API ini.
-3. Sesuaikan konfigurasi database di file `config.yaml` atau di dalam kode jika ada.
 
 ## Menjalankan Aplikasi
 
