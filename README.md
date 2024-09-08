@@ -24,7 +24,7 @@ Method | Path | Keterangan | Auth | Body Request
 ***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No  | `{ "username": "string" , "password": "string" }`  
 
 
-> ⚠️ **Warning**: Username dan password yang valid adalah **admin** dan **password**
+> ⚠️ **Warning**: Anda dapat mengunakan Username dan password yang valid yaitu  **admin** dan **password**
 
 **Contoh CURL**
 ```json
@@ -43,10 +43,10 @@ curl --location 'http://localhost:8080/login' \
 
 Method | Path | Keterangan | Auth | Body Request  
 ------------- | ------------- | ------------- | ------------- | -------------  
-***GET*** | *`/api/books`* | Mendapatkan daftar semua buku | No | -  
-***POST*** | *`/api/books`* | Menambahkan buku baru | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": 2023, "price": 250000, "total_page": 450, "category_id": 1 }`  
-***GET*** | *`/api/books/:id`* | Mendapatkan detail buku berdasarkan ID | No | -  
-***PUT*** | *`/api/books/:id`* | Memperbarui buku berdasarkan ID | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": 2023, "price": 250000, "total_page": 450, "category_id": 1 }`  
+***GET*** | *`/api/books`* | Mendapatkan daftar semua buku | Yes | -  
+***POST*** | *`/api/books`* | Menambahkan buku baru | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": "int, "price": 280000, "total_page": 90, "category_id": 3 }`  
+***GET*** | *`/api/books/:id`* | Mendapatkan detail buku berdasarkan ID | Yes | -  
+***PUT*** | *`/api/books/:id`* | Memperbarui buku berdasarkan ID | Yes | `{ "title": "string", "description": "string", "image_url": "string", "release_year": "int, "price": 280000, "total_page": 90, "category_id": 3 }`  
 ***DELETE*** | *`/api/books/:id`* | Menghapus buku berdasarkan ID | Yes | -  
   
   
@@ -54,10 +54,10 @@ Method | Path | Keterangan | Auth | Body Request
 
 Method | Path | Keterangan | Auth | Body Request  
 ------------- | ------------- | ------------- | ------------- | -------------  
-***POST*** | *`/api/categories`* | Menambahkan kategori baru | Yes | `{ "name": "string", "description": "string" }`  
-***GET*** | *`/api/categories`* | Mendapatkan daftar semua kategori | No | -  
-***GET*** | *`/api/categories/:id`* | Mendapatkan detail kategori berdasarkan ID | No | -  
-***PUT*** | *`/api/categories/:id`* | Memperbarui detail kategori berdasarkan ID | Yes | `{ "name": "string", "description": "string" }`  
+***POST*** | *`/api/categories`* | Menambahkan kategori baru | Yes | `{ "id": 7, "name": "string", "created_by": "string", "modified_by": "string" }`  
+***GET*** | *`/api/categories`* | Mendapatkan daftar semua kategori | Yes | -  
+***GET*** | *`/api/categories/:id`* | Mendapatkan detail kategori berdasarkan ID | Yes | -  
+***PUT*** | *`/api/categories/:id`* | Memperbarui detail kategori berdasarkan ID | Yes | `{ "name": "string", "created_by": "string", "modified_by": "string" }`  
 ***DELETE*** | *`/api/categories/:id`* | Menghapus kategori dari sistem berdasarkan ID | Yes | -  
 
 ## Struktur Proyek
