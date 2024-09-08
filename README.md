@@ -21,10 +21,12 @@ Endpoint Login digunakan untuk autentikasi pengguna dan mendapatkan token JWT.
 
 Method | Path                  | Keterangan                                               | Auth | Body Request
 -------|-----------------------|----------------------------------------------------------|------|-----------------------------------------------------------
-POST   | `{base_url}/login`    | Mengautentikasi pengguna dan mengembalikan token JWT     | No   | {
-       |                       | jika kredensial valid.                                   |      |   "username": "string",
+POST   | `{base_url}/login`    | Mengautentikasi pengguna dan mengembalikan token JWT     | No   | 
+       |                       | jika kredensial valid.                                   |      | 
+       |                       |                                                          |      | {
+       |                       |                                                          |      |   "username": "string",
        |                       |                                                          |      |   "password": "string"
-       |                       |                                                          |      | } 
+       |                       |                                                          |      | }
 
 
 > ⚠️ **Warning**: Anda dapat mengunakan Username dan password yang valid yaitu  **admin** dan **password**
