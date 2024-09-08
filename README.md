@@ -19,18 +19,17 @@ Sistem Informasi Acara Komunitas dan Tiket ini memiliki 5 tabel :
 ## Endpoint Login 
 Endpoint Login digunakan untuk autentikasi pengguna dan mendapatkan token JWT.
 
-Method | Path | Keterangan | Auth
-------------- | ------------- | ------------- | -------------
-***POST*** | *`/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No 
+Method | Path | Keterangan | Auth 
+------------- | ------------- | ------------- | -------------  
+***POST*** | *`{base_url}/login`* | Mengautentikasi pengguna dan mengembalikan token JWT jika kredensial valid. | No 
 
-```
-
-**Contoh Response Body**:
-```json
-{
-    "token": "your_access_token_here"
-}
-```
+**Contoh Request Body**
+  ```json
+  {
+    "username":"admin",
+    "password": "password"
+  }
+  ```
 
 ## Fitur and API Endpoints
 
