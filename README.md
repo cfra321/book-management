@@ -25,10 +25,35 @@ Method | Path | Keterangan | Auth
 
 ```
 
+**Contoh Response Body**:
+```json
+{
+    "token": "your_access_token_here"
+}
+```
+
 ## Fitur and API Endpoints
 
 - **Buku**
-  - **`GET /api/books`**             Mendapatkan daftar semua buku   
+  - **`GET /api/books`**             Mendapatkan daftar semua buku
+      - Contoh Response Body:     
+  ```json
+   {
+    "id": 1,
+    "title": "Go Programming",
+    "description": "A comprehensive guide to mastering Go programming.",
+    "image_url": "https://example.com/images/go_programming.jpg",
+    "release_year": 2022,
+    "price": 250000,
+    "total_page": 450,
+    "thickness": "tebal"
+    "category_id": 1,
+    "created_at": "2023-08-01T10:00:00Z",
+    "created_by": "admin",
+    "modified_at": "2023-08-02T10:00:00Z",
+    "modified_by": "admin"
+  }
+  ```
   - **`POST /api/books`**            Menambahkan buku baru
   ```json
     {
